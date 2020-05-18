@@ -3,9 +3,8 @@ on: [push]
 jobs:
   build:
   runs-on: ubuntu-latest
-
   steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Login to DockerHub Registry
       run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u bugaga1100 --password-stdin
     - name: Build the tagged Docker image
