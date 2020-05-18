@@ -1,3 +1,4 @@
+name: blockchain study project
 on: [push]
 
 jobs:
