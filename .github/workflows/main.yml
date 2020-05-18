@@ -4,13 +4,13 @@ jobs:
 build:
 runs-on: ubuntu-latest
 
-  steps:
-      - uses: actions/checkout@v1
-      - name: Login to DockerHub Registry
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u bugaga1100 --password-stdin
-      - name: Build the tagged Docker image
-        run: docker build --tag bugaga1100/study-be:latest .
-      - name: Push the tagged Docker image
-        run: docker push bugaga1100/study-be:latest
-      - name: Push the latest Docker image
-        run: docker push bugaga1100/study-be:latest
+steps:
+  - uses: actions/checkout@v1
+  - name: Login to DockerHub Registry
+    run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u bugaga1100 --password-stdin
+  - name: Build the tagged Docker image
+    run: docker build --tag bugaga1100/study-be:latest .
+  - name: Push the tagged Docker image
+    run: docker push bugaga1100/study-be:latest
+  - name: Push the latest Docker image
+    run: docker push bugaga1100/study-be:latest
