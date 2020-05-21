@@ -128,7 +128,12 @@ func (api *API) Balance(w http.ResponseWriter, r *http.Request) {
 func (api *API) TokenBalances(w http.ResponseWriter, r *http.Request) {
 	login := r.URL.Query().Get("login")
 
-	respMap := map[string]interface{}{}
+	type resp struct {
+		Name    string `json:"name"`
+		Balance uint64 `json:"balance"`
+	}
+
+	var respArr []resp
 
 	for i := range SupportedTokens {
 
@@ -138,10 +143,10 @@ func (api *API) TokenBalances(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		respMap[SupportedTokens[i].Name] = bal.Int64()
+		respArr = append(respArr, resp{Name: SupportedTokens[i].Name, Balance: bal.Uint64()})
 	}
 
-	Json(w, respMap)
+	Json(w, respArr)
 }
 
 func (api *API) Invest(w http.ResponseWriter, r *http.Request) {
@@ -169,7 +174,7 @@ func (api *API) Invest(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func Json(w http.ResponseWriter, data map[string]interface{}) {
+func Json(w http.ResponseWriter, data interface{}) {
 	js, err := json.Marshal(data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
